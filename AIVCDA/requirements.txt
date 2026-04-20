@@ -1,0 +1,19 @@
+numpy
+sounddevice
+soundfile
+SpeechRecognition
+vosk
+edge-tts
+pyttsx3
+google-generativeai
+customtkinter
+psutil
+WMI
+pywin32
+requests
+openai
+Pillow
+comtypes
+pycaw
+keyboard
+standard-aifc; python_version >= '3.13'
