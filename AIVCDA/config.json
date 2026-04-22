@@ -1,5 +1,5 @@
 {
-    "GEMINI_API_KEY": "AIzaSyBL3Rdhf4IT2HRn5qhjmTpd2_SW34c5RyA",
+    "GEMINI_API_KEY": "",
     "OPENAI_API_KEY": "",
     "LLAMA_URL": "http://localhost:11434/api/generate",
     "PRIMARY_AI": "Gemini",
