@@ -12,12 +12,14 @@ MODEL_ALIAS_MAP = {
     "eco": "LLAMA_MODEL_ECO",
     "standard": "LLAMA_MODEL_STANDARD",
     "phi": "LLAMA_MODEL_PHI",
+    "beast": "LLAMA_MODEL_BEAST",
 }
 
 DEFAULT_MODELS = {
     "eco": "qwen2.5:1.5b",
     "standard": "llama3.2:3b",
     "phi": "phi3.5",
+    "beast": "llama3.1:8b",
 }
 
 
@@ -96,6 +98,7 @@ def choose_llm_model(prompt, config):
     eco_model = config.get("LLAMA_MODEL_ECO", DEFAULT_MODELS["eco"])
     standard_model = config.get("LLAMA_MODEL_STANDARD", DEFAULT_MODELS["standard"])
     phi_model = config.get("LLAMA_MODEL_PHI", DEFAULT_MODELS["phi"])
+    beast_model = config.get("LLAMA_MODEL_BEAST", DEFAULT_MODELS["beast"])
     custom_model = config.get("LLAMA_CUSTOM_MODEL", "").strip()
     default_brain = config.get("LLAMA_DEFAULT_BRAIN", "Eco").lower()
 
@@ -105,10 +108,14 @@ def choose_llm_model(prompt, config):
         return phi_model, "Phi 3.5"
     if "standard mode" in raw or "use standard" in raw or ("llama" in raw and "qwen" not in raw):
         return standard_model, "Standard"
+    if "beast mode" in raw or "use beast" in raw or "8b" in raw:
+        return beast_model, "Beast"
     if default_brain.startswith("eco") or is_low_ram():
         return eco_model, "Eco"
     if default_brain.startswith("phi"):
         return phi_model, "Phi 3.5"
+    if default_brain.startswith("beast"):
+        return beast_model, "Beast"
     if default_brain.startswith("custom") and custom_model:
         return custom_model, "Custom"
     return standard_model, "Standard"

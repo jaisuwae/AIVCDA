@@ -21,7 +21,7 @@ ctk.set_appearance_mode("Dark")
 
 VOICE_OPTIONS = ["en-US-AvaNeural (Female)", "en-US-AndrewNeural (Male)", "en-US-EmmaNeural (Female)", "en-GB-SoniaNeural (Female)"]
 AI_PROVIDERS = ["Llama (Local)"]
-BRAIN_OPTIONS = ["Eco (qwen2.5:1.5b)", "Standard (llama3.2:3b)", "Phi 3.5", "Custom"]
+BRAIN_OPTIONS = ["Eco (qwen2.5:1.5b)", "Standard (llama3.2:3b)", "Beast (llama3.1:8b)", "Phi 3.5", "Custom"]
 
 class App(ctk.CTk):
     def __init__(self):
@@ -30,6 +30,11 @@ class App(ctk.CTk):
         self.geometry("1200x900")
         self.configure(fg_color=COLOR_BG)
         self.config = load_config()
+
+        # Perform First Run Check
+        config_path = "config.json"
+        if not os.path.exists(config_path) or os.stat(config_path).st_size == 0:
+            self.run_first_setup()
 
         # Set taskbar and window icon
         if platform.system() == "Windows":
@@ -56,6 +61,48 @@ class App(ctk.CTk):
         self.check_ollama_startup()
         self.refresh_history()
         self.monitor_process()
+
+    def run_first_setup(self):
+        """Modal onboarding for new users to personalize identity and brain selection."""
+        setup = ctk.CTkToplevel(self)
+        setup.title("Silvia | Initial Neural Calibration")
+        setup.geometry("450x550")
+        setup.configure(fg_color=COLOR_BG)
+        setup.grab_set()  # Force focus to setup window
+        setup.attributes("-topmost", True)
+
+        ctk.CTkLabel(setup, text="Welcome to Silvia", font=ctk.CTkFont(size=24, weight="bold"), text_color=COLOR_TEXT).pack(pady=(40, 10))
+        ctk.CTkLabel(setup, text="Please personalize your assistant's identity.", font=ctk.CTkFont(size=12), text_color=COLOR_SUBTEXT).pack(pady=(0, 30))
+
+        ctk.CTkLabel(setup, text="What is your name?", text_color=COLOR_SUBTEXT).pack(padx=40, anchor="w")
+        name_entry = ctk.CTkEntry(setup, placeholder_text="e.g. Master, Alex...", fg_color=COLOR_ACCENT, border_width=1, border_color="#333333", width=370, height=40)
+        name_entry.pack(pady=(5, 25), padx=40)
+
+        ctk.CTkLabel(setup, text="Which model should I use?", text_color=COLOR_SUBTEXT).pack(padx=40, anchor="w")
+        
+        model_var = ctk.StringVar(value="Standard (llama3.2:3b)")
+        options = ["Eco (qwen2.5:1.5b)", "Standard (llama3.2:3b)", "Beast (llama3.1:8b)"]
+        for opt in options:
+            ctk.CTkRadioButton(setup, text=opt, variable=model_var, value=opt, text_color=COLOR_TEXT, hover_color=COLOR_HOVER, fg_color=COLOR_TEXT).pack(pady=8, padx=50, anchor="w")
+
+        def save_and_continue():
+            user_name = name_entry.get().strip() or "Sir"
+            chosen_brain = model_var.get()
+
+            self.config["USER_SALUTATION"] = user_name
+            self.config["LLAMA_DEFAULT_BRAIN"] = chosen_brain
+            
+            # Ensure specific model values are set if not present in default templates
+            if "Beast" in chosen_brain:
+                self.config["LLAMA_MODEL_BEAST"] = "llama3.1:8b"
+
+            save_config(self.config)
+            setup.destroy()
+            messagebox.showinfo("Neural Link Establishing", f"Setup complete. Welcome, {user_name}.")
+
+        ctk.CTkButton(setup, text="INITIALIZE CORE", command=save_and_continue, fg_color=COLOR_TEXT, text_color=COLOR_BG, font=ctk.CTkFont(weight="bold"), height=45, width=200).pack(pady=40)
+
+        self.wait_window(setup) # Block main loop until calibration is finished
 
     def _build_sidebar(self):
         self.sidebar_frame = ctk.CTkFrame(self, width=220, corner_radius=0, fg_color=COLOR_SIDEBAR, border_width=1, border_color="#222222")
@@ -493,4 +540,11 @@ class App(ctk.CTk):
         else:
             self.shutdown_assistant_process()
 
-if __name__ == "__main__": app = App(); app.mainloop()
+if __name__ == "__main__":
+    # Check if the process is being called to run the background engine
+    if len(sys.argv) > 1 and "main.py" in sys.argv[1]:
+        import main
+        main.main()
+    else:
+        app = App()
+        app.mainloop()
