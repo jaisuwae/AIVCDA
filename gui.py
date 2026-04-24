@@ -540,4 +540,11 @@ class App(ctk.CTk):
         else:
             self.shutdown_assistant_process()
 
-if __name__ == "__main__": app = App(); app.mainloop()
+if __name__ == "__main__":
+    # Check if the process is being called to run the background engine
+    if len(sys.argv) > 1 and "main.py" in sys.argv[1]:
+        import main
+        main.main()
+    else:
+        app = App()
+        app.mainloop()
