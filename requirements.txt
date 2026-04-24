@@ -1,0 +1,18 @@
+numpy
+sounddevice
+ollama
+soundfile
+SpeechRecognition
+vosk
+edge-tts
+pyttsx3
+customtkinter
+psutil
+WMI
+pywin32
+requests
+Pillow
+comtypes
+pycaw
+keyboard
+standard-aifc; python_version >= '3.13'

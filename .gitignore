@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Logs
+*.log
+assistant.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Cache files
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Runtime files
+*.pid
+*.pid.lock

@@ -1,0 +1,77 @@
+{
+    "LLAMA_URL": "http://localhost:11434/api/generate",
+    "LLAMA_TIMEOUT": 120,
+    "LLAMA_DEFAULT_BRAIN": "Eco (qwen2.5:1.5b)",
+    "LLAMA_CUSTOM_MODEL": "",
+    "LLAMA_PATH": "C:\\Users\\Anshu\\AppData\\Local\\Programs\\Ollama\\ollama.EXE",
+    "LOG_FILE": "assistant.log",
+    "ASK_BEFORE_LOGGING": true,
+    "ASSISTANT_PERSONALITY": "Answer briefly, politely, and clearly.",
+    "LLAMA_MODEL_ECO": "qwen2.5:1.5b",
+    "LLAMA_MODEL_STANDARD": "llama3.2:3b",
+    "LLAMA_MODEL_PHI": "phi3.5",
+    "PRIMARY_AI": "Llama (Local)",
+    "CAGE_PROTOCOL": true,
+    "USE_LOCAL_VOSK": true,
+    "USE_GOOGLE_STT": true,
+    "USE_CLOUD_TTS": true,
+    "FORCE_OFFLINE": false,
+    "ASSISTANT_NAME": "Silvia",
+    "ASSISTANT_ALIASES": [
+        "sylvia",
+        "silva"
+    ],
+    "USER_SALUTATION": "master",
+    "EDGE_VOICE": "en-GB-SoniaNeural",
+    "APP_TYPE_MEMORY": {},
+    "ADVANCED_SCRIPTS": {},
+    "CLAP_THRESHOLD": 0.05,
+    "CLAP_COOLDOWN": 1.0,
+    "RESOURCE_MODE": "Normal",
+    "THE_USUAL_APPS": [
+        {
+            "type": "browser",
+            "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+        },
+        {
+            "type": "browser",
+            "url": "https://instagram.com"
+        },
+        {
+            "type": "app",
+            "path": "whatsapp://"
+        },
+        {
+            "type": "app",
+            "path": "notepad.exe"
+        }
+    ],
+    "CUSTOM_COMMANDS": {
+        "open chrome": "start chrome",
+        "open calculator": "calc.exe",
+        "lets begin": "open chrome, play back in black on youtube, open notepad, open whatsapp, open instagram",
+        "let's begin": "open chrome, play black in black, open whatsapp, open vs code, open notepad, open instagram"
+    },
+    "CUSTOM_APPS": {
+        "instagram": "www.instagram.com"
+    },
+    "ACTIVATION_PHRASES": [
+        "and silvia",
+        "hey silvia",
+        "silvia"
+    ],
+    "DEACTIVATION_PHRASES": [
+        "end silvia",
+        "close silvia",
+        "exit silvia",
+        "stop silvia",
+        "end sylvia",
+        "close sylvia",
+        "exit sylvia",
+        "stop sylvia",
+        "end silva",
+        "close silva",
+        "exit silva",
+        "stop silva"
+    ]
+}
